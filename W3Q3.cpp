@@ -27,6 +27,6 @@ int main() {
 	}
 	cout<<"Largest  Number: "; largest.print(); cout<<endl;
 	cout<<"Smallest  Number: "; smallest.print(); cout<<endl;
-	return 0;
 	delete [] r;
+	return 0;	
 }
