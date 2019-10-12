@@ -153,3 +153,29 @@ int main() {
 	fin.close();
 	return 0;
 }
+
+//METHOD 2: BY RECURSION
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+//still don't know how its working though!
+void lastNum(ifstream& fin) {
+	int n;
+	while(fin.eof()==false) {
+		fin>>n;
+		lastNum(fin);
+		cout<<n;
+	}
+}
+int main() {
+	ifstream fin;
+	fin.open("RandNum.txt");
+	if(fin.fail()) {
+		cout<<"Error file not found";
+		return 0;
+	}
+	lastNum(fin);
+	fin.close();
+	return 0;
+}
