@@ -18,11 +18,19 @@ char GradeCalculator(int c,int b,int a) {
 int main() {
 	ifstream fin;
 	fin.open("ClassList.txt");
+	if(fin.fail()) {
+		cerr<<"Input File \"ClassList\" Not Found ";
+		return 0;
+	}
 	ofstream fout;
 	char ch;
 	int spaceCount=0;
 	int n,c,b,a;
 	fout.open("Report.txt");
+	if(fout.fail()) {
+		cerr<<"Can't find Output File \"Report\"";
+		return 0;
+	}
 	while(!fin.eof()) {
 		fin.get(ch);
 		if(ch==' ')
