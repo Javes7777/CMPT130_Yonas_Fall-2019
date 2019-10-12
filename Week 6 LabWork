@@ -1,0 +1,42 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+//Question 1
+char GradeCalculator(int c,int b,int a) {
+	int total=a+b+c;
+	if(total>=90) 
+		return 'A';
+	else if(total>=75)
+		return 'B';
+	else if(total>=65)
+		return 'C';
+	else if(total>=50)
+		return 'D';
+	else if(total>=0)
+		return 'F';
+}
+int main() {
+	ifstream fin;
+	fin.open("ClassList.txt");
+	ofstream fout;
+	char ch;
+	int spaceCount=0;
+	int n,c,b,a;
+	fout.open("Report.txt");
+	while(!fin.eof()) {
+		fin.get(ch);
+		if(ch==' ')
+			spaceCount++;
+		fout<<ch;
+		if(spaceCount>1) {
+			fin>>c>>b>>a;
+			ch = GradeCalculator(c,b,a);
+			fout<<" "<<ch<<endl;
+			spaceCount=0;
+		}
+	}
+	fin.close();
+	fout.close();
+	return 0;
+}
+
