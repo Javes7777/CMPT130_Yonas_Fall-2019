@@ -48,3 +48,19 @@ int main() {
 	return 0;
 }
 
+//Question 2
+#include<iostream>
+#include<fstream>
+#include<cstdlib>
+using namespace std;
+int main() {
+	ofstream fout;
+	fout.open("randomNumbers.txt");
+	int n = rand()%51+50;
+	int j;
+	for(int i=0;i<n;i++) {
+		j=rand()%1000;
+		fout<<j<<"\t";
+	}
+	return 0;
+}
