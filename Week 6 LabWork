@@ -131,3 +131,30 @@ int main() {
 
 //Question 5 -- Same as Week 6 Class practice 
 //Do you seriously think I have time to write it again>
+
+//Question 7
+#include<iostream>
+#include<fstream>
+using namespace std;
+int main() {
+	int n;
+	ofstream fout;
+	fout.open("multiplicationTable.txt");
+	if(fout.fail()) {
+		cerr<<"Cannot Found multiplicationTable.txt";
+		return 0;
+	}
+	cout<<"Enter an Integer for multiplication table ";
+	cin>>n;
+	for(int i=0;i<n;i++)	 {
+		for(int j=0;j<n;j++) {
+			fout<<(i+1)*(j+1)<<"  ";
+		}
+		fout<<endl;
+	}
+	fout.close();
+	return 0;
+}
+
+//Question 8
+
