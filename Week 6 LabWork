@@ -157,4 +157,86 @@ int main() {
 }
 
 //Question 8
-
+//this is challenge if you can't understand please skip it.
+//I did it with 2 methods, method1(straight away using Notes and intuition) and method2(with using knowledge of library function "seek")
+#include<iostream>
+#include<fstreaM>
+using namespace std;
+char GradeCalculator(int c,int b,int a) {
+	int total=a+b+c;
+	if(total>=90) 
+		return 'A';
+	else if(total>=75)
+		return 'B';
+	else if(total>=65)
+		return 'C';
+	else if(total>=50)
+		return 'D';
+	else if(total>=0)
+		return 'F';
+}
+int main() {
+	ifstream fin;
+	fin.open("ClassList.txt");
+	if(fin.fail()) {
+		cerr<<"Input file Not found!";
+		return 0;
+	}
+	char ch;
+	int spaceCount=0;
+	int n,c,b,a;
+	int top=0;
+	int position,i=1;
+	while(fin.eof()==false) {
+		fin.get(ch);
+		if(ch==' ')
+			spaceCount++;
+		if(spaceCount>1) {
+			fin>>c>>b>>a;
+			int x=a+b+c;
+			if(x>top) {
+				top = x;
+				position=i; 
+			}
+			spaceCount=0;
+			i++;
+		}
+	}
+	fin.close();
+	fin.open("ClassList.txt");
+	if(fin.fail()) {
+		cout<<"Cannot open file ";
+		return 0;
+	}
+	int finder=1; // I want it to work 1 time less than it should because I am not seeking back
+	bool flag=0;
+	while(fin.eof()==false && flag==0) {
+		 if(finder==position) {
+		 	while(fin.eof()==false && flag==0) {
+		 	fin.get(ch);
+		 	cout<<ch;
+		 	if(ch==' ')
+				spaceCount++;
+			if(spaceCount>1) {
+		 		fin>>a>>b>>c;
+		 		ch=GradeCalculator(a,b,c);
+		 		cout<<" "<<ch;
+		 		flag=1; //I am Done!
+			}
+		}
+	}
+	else {
+		fin.get(ch);
+		if(ch==' ')
+			spaceCount++;
+		if(spaceCount>1) {
+			fin>>a>>b>>c;
+			finder++;
+			a=b=c=0;
+			spaceCount=0;	//Jump to next line please
+		}
+	}
+	}
+	fin.close();
+	return 0;
+}
