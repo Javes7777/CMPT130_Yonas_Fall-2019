@@ -64,3 +64,45 @@ int main() {
 	}
 	return 0;
 }
+
+//Question 3
+#include<iostrea
+
+#include<fstream>
+#include<cstdlib>
+using namespace std;
+int main() {
+	ofstream fout;
+	fout.open("randomNumbers.txt");
+	int n = rand()%51+50;
+	int j;
+	for(int i=0;i<n;i++) {
+		j=rand()%1000;
+		fout<<j<<"\t";
+	}
+	return 0;
+}
+
+//Question 4
+#include<iostream>
+#include<fstreaM>
+using namespace std;
+int main() {
+	ifstream fin;
+	fin.open("randomNumbers.txt");
+	int n,min,max;
+	fin>>max;
+	min=max;
+	while(!fin.eof()) {
+		fin>>n; 
+		if(n>max)
+			max=n;
+		if(n<min)
+			min=n;
+	}
+	cout<<"Maximum Number: "<<max<<endl;
+	cout<<"Minimum Niumber: "<<min<<endl;
+	return 0;
+}
+
+//Question 5
