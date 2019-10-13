@@ -50,24 +50,48 @@ int main() {
 
 //Question 2
 #include<iostream>
-#include<fstream>
-#include<cstdlib>
+#include<fstreaM>
 using namespace std;
+char GradeCalculator(int c,int b,int a) {
+	int total=a+b+c;
+	if(total>=90) 
+		return 'A';
+	else if(total>=75)
+		return 'B';
+	else if(total>=65)
+		return 'C';
+	else if(total>=50)
+		return 'D';
+	else if(total>=0)
+		return 'F';
+}
 int main() {
-	ofstream fout;
-	fout.open("randomNumbers.txt");
-	int n = rand()%51+50;
-	int j;
-	for(int i=0;i<n;i++) {
-		j=rand()%1000;
-		fout<<j<<"\t";
+	fstream finout;
+	finout.open("ClassList.txt");
+	if(finout.fail()) {
+		cerr<<"Input file Not found!";
+		return 0;
 	}
+	char ch;
+	int spaceCount=0;
+	int n,c,b,a;
+	while(!finout.eof()) {
+		finout.get(ch);
+		if(ch==' ')
+			spaceCount++;
+		if(spaceCount>1) {
+			finout>>c>>b>>a;
+			ch = GradeCalculator(c,b,a);
+			finout<<" "<<ch<<endl;
+			spaceCount=0;
+		}
+	}
+	finout.close();
 	return 0;
 }
 
 //Question 3
-#include<iostrea
-
+#include<iostream>
 #include<fstream>
 #include<cstdlib>
 using namespace std;
