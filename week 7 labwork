@@ -59,3 +59,51 @@ int main() {
 	
 	return 0;
 }
+
+//Question 4:
+
+vector<int> operator *(const vector<int> enjoyment,const int music) {
+	vector<int> life;
+	if(enjoyment.size()==0)
+		return life;
+	int mymusic=abs(music);
+	if(mymusic==0) {
+		for(int j=0;j<enjoyment.size();j++) {
+			life.push_back(0);
+		}		
+	}
+	for(int i=0;i<mymusic;i++) {
+		for(int j=0;j<enjoyment.size();j++) {
+			life.push_back(enjoyment[j]);
+		}
+	}
+	return life;
+}
+void printVector(vector<int> n) {
+	for(int i=0;i<n.size();i++) {
+		cout<<n[i]<<"	";
+	}
+	cout<<endl;
+}
+int main() {
+	vector <int> n(5);	
+	
+	n = n*2;
+	cout<<"empty vector multiplied by 2: "<<endl;		printVector(n);
+	
+		//filling n;
+	for(int i=0;i<n.size();i++) {
+		n[i] = i*3;
+	}
+	
+	n = n*3;
+	cout<<"filled n multiplied by 3: "<<endl;		printVector(n);
+	
+	n = n*0;
+	
+	cout<<"filled n multiplied by 0: "<<endl;		printVector(n);
+	return 0;
+}
+
+//Question 5: 
+
