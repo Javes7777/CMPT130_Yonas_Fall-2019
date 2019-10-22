@@ -171,3 +171,21 @@ bool isdistinct(const vector<int> mi) {
 }
 
 //Question 7:
+vector<int> distinctElements(const vector<int> X) {
+	vector<int> coolX;
+	if(X.size()==0)
+		return coolX;
+	coolX.push_back(X[0]);
+	bool ice=1;
+	for(int i=1;i<X.size();i++) {
+		for(int j=0;j<coolX.size();j++) {
+			if(coolX[j]==X[i])
+				ice=0;
+		}
+		if(ice==1)
+			coolX.push_back(X[i]);
+	}
+	return coolX;
+} 
+
+//Question 8:
