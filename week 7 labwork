@@ -1,0 +1,61 @@
+//Question 1
+#include<iostream>
+#include<vector>
+using namespace std;
+vector <int> pop_front(vector<int> n) {
+	for(int i=0;i<n.size();i++) {
+		n[i] = n[i+1];
+	}
+	n.resize(n.size()-1);
+	return n;
+}
+void printVector(vector<int> n) {
+	for(int i=0;i<n.size();i++) {
+		cout<<n[i]<<"   ";
+	}
+  cout<<endl;
+}
+int main() {
+	vector <int> n(5);
+	//filling n;
+	for(int i=0;i<n.size();i++) {
+		n[i] = i*3;
+	}
+	cout<<"Our vector is: "; printVector(n);
+	n=pop_front(n);
+	cout<<"After removing first element of our vector"; printVector(n);
+	return 0;
+}
+
+//Question 2
+vector<double> operator+(vector<double> post, vector<double> malone) {
+	vector<double> circles;
+	if(post.size()!=malone.size())
+		return circles;
+	for(int i=0;i<post.size();i++) {
+		circles.push_back(post[i]+malone[i]);
+	}
+	return circles;
+}
+void printVector(vector<double> n) {
+	for(int i=0;i<n.size();i++) {
+		cout<<n[i]<<"	";
+	}
+	cout<<endl;
+}
+int main() {
+	vector<double> x(3), y(3);
+	for(int i=0;i<x.size();i++) {
+		x[i] = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(30-3)));
+	}
+	for(int i=0;i<y.size();i++) {
+		y[i] = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(30-3)));
+	}
+	cout<<"x is: ";		printVector(x);
+	cout<<"y is: ";		printVector(y);
+	x = x+y;
+	cout<<"Addition is: "<<endl;
+	printVector(x);
+	
+	return 0;
+}
