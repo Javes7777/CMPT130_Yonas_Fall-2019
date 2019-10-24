@@ -223,3 +223,50 @@ vector<int> duplicate(vector<int> X) {
 
 
 //Question 10:
+//Question 13:
+vector <Vehicle> readVehicleInventory(const string path) { 
+	ifstream fin;
+	fin.open(path);
+	if(fin.fail()) {
+		cout<<"file cannot be found!";
+		abort();
+	}
+	Vehicle gans;
+	vector<Vehicle> tesla;
+	while(fin.eof()==false) {
+		fin>>gans.make;
+		fin>>gans.year;
+		fin>>gans.hp;
+		tesla.push_back(gans);
+	}
+	return tesla;
+}
+
+//Question 14:
+vector<Vehicle> reOrderObjects(vector<Vehicle> tesla) {
+	Vehicle gans = tesla[0];
+	int count =1;
+	int n = tesla.size();
+	for(int i=1;i<n;i++) {
+		for(int k=i;k<n;k++) {
+			if(tesla[k].make==gans.make) {
+				tesla.insert((tesla.begin()+i),tesla[k]);
+				tesla.erase((tesla.begin()+k+1));
+				i++;
+			}			
+		}
+		gans = tesla[i];
+	}
+	return tesla;
+}
+
+//Question 14::
+Vehicle  mostPowerful(const vector<Vehicle>& tesla) {
+	int index=0;
+	for(int i=1;i<tesla.size();i++)
+		if(tesla[i].hp>tesla[index].hp) 
+			index = i;
+	return tesla[index];
+}
+
+//THE END!
