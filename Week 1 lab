@@ -1,0 +1,60 @@
+//Question 1-7 are for output
+//Question 8-10 are:
+double toDouble(RationalNumber r) {
+	return static_cast<double>(r.a)/r.b;
+}
+void standardize(RationalNumber& R) {
+	if(R.a<0 && R.b<0 || R.a>0 && R.b<0) {
+		R.a=R.a*-1;
+		R.b=R.b*-1;
+	}
+}
+void reduce() {
+	if(b==0) {
+		cout<<"INVALID RATIONAL NUMBER!";
+	}
+	else if(abs(a)==abs(b)) {
+		a=a/b;
+		b=1;
+	}
+	else {
+		for(int i=b;i>=2;i--)
+			if(a%i==0 && b%i==0) {
+				a=a/i;
+				b=b/i;
+			}
+	}
+}
+
+
+
+//Question 10:
+#include<iostream>
+#include<cmath>
+#include<cstring>
+using namespace std;
+struct StringStat
+{
+string s;
+int lower, upper, digit;
+}str;
+int main() {
+	str.s="GurKamalis12";
+	str.lower=0;
+	str.upper=0;
+	str.digit=0;
+	int l=str.s.length();
+	for(int i=0;i<=l;i++) {
+		if(islower(str.s[i]))
+			str.lower++;
+		else if(isupper(str.s[i]))
+			str.upper++;
+		else if(isdigit(str.s[i]))
+			str.digit++;
+		}
+		cout<<"Upper: "<<str.upper<<endl;
+		cout<<"Lower: "<<str.lower<<endl;
+		cout<<"Digit: "<<str.digit<<endl;
+	return 0;
+}
+//Question 11:
