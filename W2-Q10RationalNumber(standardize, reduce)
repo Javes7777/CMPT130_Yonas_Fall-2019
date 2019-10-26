@@ -92,7 +92,7 @@ class RationalNumber {
 			b=den;
 		}
 		double toDouble() {
-			double d = static_cast<double>(a/b);
+			double d = static_cast<double>(a)/b;
 			return d;
 		}
 		void reduce() {
