@@ -1,61 +1,53 @@
+//Question 5:
+int Point::getQuadrant() {
+	if(this->x>0 && this->y>0) 
+		return 1;
+	else if(this->x<0 && this->y>0) 
+		return 2;
+	if(this->x>0 && this->y<0) 
+		return 3;
+	if(this->x>0 && this->y<0) 
+		return 4;
+	else
+		return -1;
+}
+
+//Question 6:
+int Point::getDistance() {
+	return sqrt(pow(x,2) + pow(y,2));
+}
+
+//Question 7:
+string Point::toString() {
+	stringstream ss;
+	ss<<"("<<x<<","<<y<<")";
+	return ss.str();
+}
+//Question 8:
+int getDistanceBetweenPoints(Point p1,Point p2) {
+	float xdiff = p1.getX() - p2.getX();
+	float ydiff = p1.getY() - p2.getY();
+	return sqrt(xdiff*xdiff + ydiff*ydiff);
+
 //Question 9
-#include<iostream>
-#include<cmath>
-using namespace std;
-class Triangle {
-	private:
-		float side1,side2,side3;
-	public:
-		Triangle() {
-			side1=side2=side3=1.0;
+Point getFurthestPoint(Point *p, int size) {
+	if(size<=0) {
+		cout<<"array is empty";
+		abort();
+	}
+	Point furthest(0,0);
+	double maxdist = p[1].getDistance() , d=0;
+	int index=0;
+	for(int i=1;i<size;i++) {
+			d = p[i].getDistance();
+			if(d>=maxdist) {
+				maxdist = d;
+				index=i;
+			}
 		}
-		Triangle(float s) {
-			side1=side2=side3=s;
-		}
-		Triangle(float eqs,float s3) {
-			side1=side2=eqs;
-			side3=s3;
-		}
-		Triangle(float s1,float s2,float s3) {
-			side1=s1;
-			side2=s2;
-			side3=s3;
-		}		
-		float getSide1() {
-			return side1;
-		}
-		float getSide2() {
-			return side2;
-		}
-		float getSide3() {
-			return side3;
-		}
-		void setSide1(float s) {
-			side1=s;
-		}
-		void setSide2(float s) {
-			side2=s;
-		}
-		void setSide3(float s) {
-			side3=s;
-		}
-		float getPerimeter(float a, float b, float c) {
-			return a+b+c;
-		}
-		float getArea(float a, float b, float c) {
-			float s = getPerimeter(a,b,c);
-			s=s/2;
-			s=sqrt(s*(s-a)*(s-b)*(s-c));
-			return s;
-		}
-		void print() {
-			cout<<"Side 1: "<<side1<<endl;
-			cout<<"Side 2: "<<side2<<endl;
-			cout<<"Side 3: "<<side3<<endl;
-			cout<<"Perimeter: "<<getPerimeter(side1,side2,side3)<<endl;
-			cout<<"Area: "<<getArea(side1,side2,side3)<<endl;
-		}
-};
+	furthest = p[index];
+	return furthest;
+}
 
 int main() {
 	Triangle t;
