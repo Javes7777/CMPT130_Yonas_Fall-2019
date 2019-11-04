@@ -144,7 +144,7 @@ int main() {
 
 
 
-//Question 4-6 (Ellipse , Circle, Cylinder): 
+//Question 4-7 (Ellipse , Circle, Cylinder, Disk): 
 #include<iostream> 
 #include<cmath>
 
@@ -212,6 +212,8 @@ public:
 	void set_minorAxis(const double &);
 	void set_Radius(const double&);
 	//Area and circmference are not needed;
+	//Assignment operator: 
+	Circle& operator = (const Circle &c);
 	//input and output:
 	friend istream& operator>>(istream& inputStream, Circle &c);
 	friend ostream& operator<<(ostream& outputStream, const Circle &c);
@@ -223,6 +225,12 @@ Circle::Circle(const Circle &c) { this->set_Radius(c.getRadius()); }
 
 double Circle::getRadius() const{ return this->get_majorAxis(); }
 
+Circle& Circle::operator = (const Circle &c) {
+	if(this==&c) 
+		return *this;
+	this->set_Radius(c.getRadius());
+	return *this;
+}
 void Circle::set_majorAxis(const double &len) { this->set_Radius(len); }
 void Circle::set_minorAxis(const double &len) { this->set_Radius(len); }
 void Circle::set_Radius(const double &len) { this->Ellipse::set_majorAxis(len); this->Ellipse::set_minorAxis(len); }
@@ -244,6 +252,8 @@ public:
 	Cylinder();
 	Cylinder(const double &, const double &);
 	Cylinder(const Cylinder &c);
+	//Assignment operator: 
+	Cylinder& operator=(const Cylinder &c);
 	//geters:
 	double get_height() const ;
 	//seters:
@@ -261,6 +271,14 @@ public:
 Cylinder::Cylinder() { this->set_Radius(0); this->set_height(0); }
 Cylinder::Cylinder(const double &r, const double &h) { this->set_Radius(r); this->set_height(h); }
 Cylinder::Cylinder(const Cylinder &c) { this->set_height(c.get_height()); this->set_Radius(c.getRadius()); }
+
+
+Cylinder& Cylinder::operator =(const Cylinder &c) {
+	if(this==&c)
+		return *this;
+	this->set_height(c.get_height());
+	this->set_Radius(c.getRadius());
+}
 
 double Cylinder::get_height() const { return this->height; }
 
@@ -285,11 +303,57 @@ ostream& operator<<(ostream& outputStream, const Cylinder &c) {
 	return outputStream;
 }
 
+class Disk : public Cylinder {
+public: 
+	Disk();
+	Disk(const double &, const double &);
+	Disk(const Disk &d);
+	//Assignmrnt operator :
+	Disk& operator=(const Disk &d);
+	//Area:
+	double getArea() const;
+	//friend input/output: 
+	friend istream& operator>>(istream& inputStream, Disk &c);
+	friend ostream& operator<<(ostream& outputStream, const Disk &c);
+};
+
+Disk::Disk() : Cylinder() { }
+Disk::Disk(const double &r, const double &d) : Cylinder(r,d) { }
+Disk::Disk(const Disk &d) : Cylinder(static_cast<Cylinder>(d) ) { }
+
+double Disk::getArea() const { return (this->Circle::getArea() + this->Cylinder::getArea()); }
+
+Disk& Disk::operator=(const Disk &d) {
+	if(this==&d)
+		return *this;
+	this->set_height(d.get_height());
+	this->set_Radius(d.getRadius());
+	return *this;
+}
+
+istream& operator>>(istream& inputStream, Disk &c) {
+	double len;
+	cout<<"Reading Disk information: "<<endl<<"Enter radius: ";
+	inputStream>>len;
+	c.set_Radius(len);
+	cout<<"Enter heigth: ";
+	inputStream>>len;
+	c.set_height(len);
+	return inputStream;
+}
+ostream& operator<<(ostream& outputStream, const Disk &c) {
+	cout<<"Disk: Radius= "<<c.getRadius()<<", height= "<<c.get_height()<<", Surface Area= "<<c.getArea()<<", Curved Surface Area= "<<c.getCurvedSurfaceArea()<<", Volume= "<<c.getVolume();
+	return outputStream;
+}
+
+
 int main() {
-	Cylinder c;
-	cin>>c;
-	cout<<c;
+	Disk d;
+	cin>>d;
+	cout<<d;
 	return 0;
 }
 
-//Question 7
+//Question 8 and 9(Ellipsoid and Sphere ):
+ 
+
