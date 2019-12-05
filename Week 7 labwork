@@ -223,6 +223,47 @@ vector<int> duplicate(vector<int> X) {
 
 
 //Question 10:
+void insertIncreasing(vector<int> &a, const int x)	{
+	int n = a.size();
+	bool flag = 0;
+	int i=0;
+	while(i<n) {
+		if(x<=a[i]) {
+			a.insert(a.begin()+i,x);
+			flag=1;
+			break;
+		}
+		i++;
+	}
+	if(flag==0) 
+		a.push_back(x);
+}	// sort library function can also be used.
+
+//Question 11:
+void insertGrouped(vector<int> &a, const int x) {
+	int i=0; bool flag=0;
+	while(i<a.size()) {
+		if(x%2==0 && a[i]%2==0) {
+			a.insert(a.begin()+i, x);
+			flag=1;
+			break;
+		}
+		else if(x%2!=0 && a[i]%2!=0) {
+			a.insert(a.begin()+i, x);
+			flag=1;
+			break;
+		}
+		i++;
+	}
+	if(flag==0)
+		a.push_back(x);
+}
+
+//Question 12:
+//This one is really nice and used in Assignment 2 as well.
+
+
+
 //Question 13:
 vector <Vehicle> readVehicleInventory(const string path) { 
 	ifstream fin;
