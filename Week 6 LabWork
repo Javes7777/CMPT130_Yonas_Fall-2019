@@ -316,3 +316,186 @@ int main() {
 	}
 	return 0;
 }
+
+//Class Practice: 
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+//METHOD 1: BY SMARTARRAY CLASS
+
+class SmartArray {
+	private:
+		int *A;
+		int size;
+	public:
+		//constructors
+		SmartArray();
+		SmartArray(const int *A, const int size);
+		SmartArray(const SmartArray&L);
+		~SmartArray() {
+			if (this->getSize() > 0) {
+				delete[] this->A;
+				this->size= 0;
+			}
+		}		
+		//getters and setters, operators and other functions
+		int getSize() const;
+		int& operator[](const int &index) const;
+		SmartArray operator=(const SmartArray &L); 
+		void append(const int& e);
+		friend ostream& operator<<(ostream &out, const SmartArray &L); 
+		//Question 5
+		int findElement(const int) const;
+		//Question 6
+		bool remove(const int);
+		//Question 7
+		void removeAll();
+		//Question 8
+		SmartArray operator+(const SmartArray&) const;
+};
+
+SmartArray::SmartArray() {
+	this->size=0;
+	this->A=NULL;
+}
+SmartArray::SmartArray(const int *A, const int size) {
+	this->size=size;
+	if(this->getSize()>0) 
+		this->A=new int[this->getSize()];
+	for(int i=0;i<this->getSize();i++) 
+		this->A[i] = A[i];	
+}
+int SmartArray::getSize() const{
+	return this->size;
+} 
+int& SmartArray::operator[](const int& index ) const {
+	if(index>=0  && index<this->getSize()){
+		return this->A[index];
+	}
+	else {
+		cout<<"ERROR! ARRAY INDEX OUT OF BUONDS!";
+		abort();
+	}
+}
+void SmartArray::append(const int& e) {
+	int *temp=new int [this->getSize()+1];
+	for(int i=0;i<this->getSize();i++) 
+		temp[i]=this->A[i];
+	temp[this->getSize()]=e;
+	if(this->getSize()>0)
+		delete[] this->A;
+	this->A = temp;
+	this->size = this->size+1;
+}
+ostream& operator<<(ostream &out, const SmartArray &L) {
+	out<<"[";
+	for(int i=0;i<L.getSize()-1;i++) 
+		out<<L[i]<<",";
+	if(L.getSize()>0) 
+		out<<L[L.getSize()-1];
+	out<<"]";
+	return out;
+}
+SmartArray::SmartArray(const SmartArray &L) {
+	this->size=L.getSize();
+	if(this->getSize()>0) {
+		this->A=new int [this->getSize()];
+		for(int i=0;i<this->getSize();i++)
+			this->A[i] = L[i];
+	}
+}
+SmartArray SmartArray::operator=(const SmartArray &L) {
+	this->~SmartArray();
+	this->size=L.getSize();
+	if(this->getSize()>0) {
+		this->A = new int[this->getSize()];
+		for(int i =0;i<this->getSize();i++) 
+			this->A[i] = L[i];
+	}
+	return *this;
+}
+int SmartArray::findElement(const int n) const {
+	for(int i=0;i<this->getSize();i++) 
+		if(A[i]==n)
+			return i+1;
+	return -1;
+}
+bool SmartArray::remove(const int r) {
+	for(int i=0;i<this->getSize();i++) {
+		if(this->A[i] == r) {
+			for(int j=i;j<(this->getSize()-1);j++) {
+				this->A[j] = this->A[j+1];			
+			}
+			this->size = this->getSize()-1;
+			return true;
+		}
+	}
+	return false;
+}
+void SmartArray::removeAll() {
+	int i=0;
+	while(this->remove(this->A[i])==true) {}
+	return;
+}
+SmartArray SmartArray::operator+(const SmartArray& L1) const {
+	SmartArray temp;
+	temp.size = this->getSize()+L1.getSize();
+	temp.A = new int[temp.getSize()];
+	for(int i=0;i<this->getSize();i++) {
+		temp.A[i] = this->A[i];
+	}
+	int j=0;
+	for(int k=this->getSize();k<temp.getSize();k++) {
+		temp.A[k] = L1.A[j];
+		j++;
+	}
+	return temp;
+}
+
+int main() {
+	ifstream fin;
+	fin.open("RandNum.txt");
+	if(fin.fail())  {
+		cout<<"File opening failed";
+		return 0;
+	}
+	int n;
+	SmartArray S;
+
+	while(fin.eof()==false) {
+		fin>>n;
+		S.append(n);
+	}
+	for(int i=S.getSize()-1;i>=0;i--) {
+		cout<<S[i];
+	}
+	fin.close();
+	return 0;
+}
+
+//METHOD 2: BY RECURSION
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+//still don't know how its working though!
+void lastNum(ifstream& fin) {
+	int n;
+	while(fin.eof()==false) {
+		fin>>n;
+		lastNum(fin);
+		cout<<n;
+	}
+}
+int main() {
+	ifstream fin;
+	fin.open("RandNum.txt");
+	if(fin.fail()) {
+		cout<<"Error file not found";
+		return 0;
+	}
+	lastNum(fin);
+	fin.close();
+	return 0;
+}
